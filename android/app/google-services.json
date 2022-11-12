@@ -1,0 +1,143 @@
+{
+  "project_info": {
+    "project_number": "296627905681",
+    "firebase_url": "https://ultrasfirebase-304a8-default-rtdb.firebaseio.com",
+    "project_id": "ultrasfirebase-304a8",
+    "storage_bucket": "ultrasfirebase-304a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296627905681:android:57e48fac973acefced4b30",
+        "android_client_info": {
+          "package_name": "com.example.flutter_maps_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296627905681-lnv1qsnrum415e0viu16kr87q8tgo192.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_maps_app",
+            "certificate_hash": "d33b959dc09b21e05d6faecb9ce6a7fb705a57c4"
+          }
+        },
+        {
+          "client_id": "296627905681-g018e880kkt8hdbic42dq7ec5laa6ouc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnO27kQTqag2y3qi0jK6Bzmm71g9dnbSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296627905681-g018e880kkt8hdbic42dq7ec5laa6ouc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "296627905681-r3f8jpfgsgssdk02kca08e9dsb43ah4i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.socialApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296627905681:android:f4005ba9f840f5fced4b30",
+        "android_client_info": {
+          "package_name": "com.example.notification_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296627905681-fjkn8ulfvkndrdjtrqsmuc99b04c86n8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.notification_test",
+            "certificate_hash": "d33b959dc09b21e05d6faecb9ce6a7fb705a57c4"
+          }
+        },
+        {
+          "client_id": "296627905681-g018e880kkt8hdbic42dq7ec5laa6ouc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnO27kQTqag2y3qi0jK6Bzmm71g9dnbSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296627905681-g018e880kkt8hdbic42dq7ec5laa6ouc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "296627905681-r3f8jpfgsgssdk02kca08e9dsb43ah4i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.socialApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296627905681:android:0e1a07292e83874aed4b30",
+        "android_client_info": {
+          "package_name": "com.example.social_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296627905681-l6opj93svnuo1rbqeo6oaarhdai6t2rd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.social_app",
+            "certificate_hash": "d33b959dc09b21e05d6faecb9ce6a7fb705a57c4"
+          }
+        },
+        {
+          "client_id": "296627905681-g018e880kkt8hdbic42dq7ec5laa6ouc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnO27kQTqag2y3qi0jK6Bzmm71g9dnbSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296627905681-g018e880kkt8hdbic42dq7ec5laa6ouc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "296627905681-r3f8jpfgsgssdk02kca08e9dsb43ah4i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.socialApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
