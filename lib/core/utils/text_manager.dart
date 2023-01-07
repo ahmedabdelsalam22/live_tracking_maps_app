@@ -9,6 +9,9 @@ class TextManager {
   static const String apiKey = 'AIzaSyClHjS1_2CHiZhm5HO61HYGVMM5xR4gBrs';
 
   /*
+
+  api search in places
+
   https://maps.googleapis.com/maps/api/place/autocomplete/output?parameters
    */
 
