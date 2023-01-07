@@ -7,44 +7,35 @@ import 'package:flutter_maps_app/presentation/screens/otp_screen.dart';
 
 import '../presentation/screens/map_screen.dart';
 
-class AppRouter
-{
-
+class AppRouter {
   PhoneAuthCubit? phoneAuthCubit;
 
-  AppRouter(){
+  AppRouter() {
     phoneAuthCubit = PhoneAuthCubit();
   }
 
-
-  Route? generateRoute(RouteSettings settings){
-
-    switch(settings.name){
-
+  Route? generateRoute(RouteSettings settings) {
+    switch (settings.name) {
       case TextManager.mapScreen:
-        return MaterialPageRoute(builder: (_){
-          return MapScreen();
+        return MaterialPageRoute(builder: (_) {
+          return const MapScreen();
         });
 
       case TextManager.loginScreen:
-        return MaterialPageRoute(builder: (_){
+        return MaterialPageRoute(builder: (_) {
           return BlocProvider<PhoneAuthCubit>.value(
-            value: phoneAuthCubit!,
-              child: LoginScreen());
+              value: phoneAuthCubit!, child: LoginScreen());
         });
 
       case TextManager.otpScreen:
         final phoneNumber = settings.arguments;
-        return MaterialPageRoute(builder: (_){
+        return MaterialPageRoute(builder: (_) {
           return BlocProvider<PhoneAuthCubit>.value(
-            value: phoneAuthCubit!,
-              child: OtpScreen(phoneNumber: phoneNumber,));
+              value: phoneAuthCubit!,
+              child: OtpScreen(
+                phoneNumber: phoneNumber,
+              ));
         });
-
     }
-
-
   }
-
-
 }
