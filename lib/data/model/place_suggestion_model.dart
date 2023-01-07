@@ -1,8 +1,8 @@
-class PlaceSuggestion {
+class PlaceSuggestionModel {
   late String placeId;
   late String description;
 
-  PlaceSuggestion.fromJson(Map<String, dynamic> json) {
+  PlaceSuggestionModel.fromJson(Map<String, dynamic> json) {
     placeId = json["place_id"];
     description = json["description"];
   }
