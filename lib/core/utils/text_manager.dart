@@ -6,14 +6,15 @@ class TextManager {
 
   //google map api key
 
-  static const String apiKey = 'AIzaSyClHjS1_2CHiZhm5HO61HYGVMM5xR4gBrs';
+  static const String googleMapApiKey =
+      'AIzaSyClHjS1_2CHiZhm5HO61HYGVMM5xR4gBrs';
 
-  /*
-
-  api search in places
-
-  https://maps.googleapis.com/maps/api/place/autocomplete/output?parameters
-   */
+  static const String suggestionsBaseUrl =
+      'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+  static const String placeLocationBaseUrl =
+      'https://maps.googleapis.com/maps/api/place/details/json';
+  static const String directionsBaseUrl =
+      'https://maps.googleapis.com/maps/api/directions/json';
 
   // texts
   static const String loginHeaderText = "what's your number?";
