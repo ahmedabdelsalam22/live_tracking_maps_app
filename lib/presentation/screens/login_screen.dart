@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_maps_app/business_logic/phone_auth/phone_auth_cubit.dart';
 import 'package:flutter_maps_app/core/utils/color_manager.dart';
 import 'package:flutter_maps_app/core/utils/text_manager.dart';
+
+import '../business_logic/phone_auth/phone_auth_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -26,7 +27,9 @@ class LoginScreen extends StatelessWidget {
                   _buildHeaderText(),
                   const SizedBox(height: 110),
                   _buildPhoneFormField(),
-                  const SizedBox(height: 70,),
+                  const SizedBox(
+                    height: 70,
+                  ),
                   _buildNextButton(context),
                   _buildPhoneNumberSubmittedBloc(),
                 ],
@@ -38,27 +41,28 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPhoneNumberSubmittedBloc()
-  {
-    return BlocListener<PhoneAuthCubit,PhoneAuthStates>(
-      listenWhen: (previous,current){
+  Widget _buildPhoneNumberSubmittedBloc() {
+    return BlocListener<PhoneAuthCubit, PhoneAuthStates>(
+      listenWhen: (previous, current) {
         return previous != current;
       },
-      listener: (context,state){
-        if(state is PhoneAuthLoadingState){
-           showProgressIndicator(context);
+      listener: (context, state) {
+        if (state is PhoneAuthLoadingState) {
+          showProgressIndicator(context);
         }
-        if(state is PhoneAuthSubmitState){
+        if (state is PhoneAuthSubmitState) {
           Navigator.pop(context);
-          Navigator.pushNamed(context, TextManager.otpScreen,arguments: phoneNumber);
+          Navigator.pushNamed(context, TextManager.otpScreen,
+              arguments: phoneNumber);
         }
-        if(state is PhoneAuthErrorState){
+        if (state is PhoneAuthErrorState) {
           String errorMessage = (state).errorMessage;
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content: Text(errorMessage),
-                backgroundColor: ColorManager.black,duration: const Duration(days: 4),
-              ),
+            SnackBar(
+              content: Text(errorMessage),
+              backgroundColor: ColorManager.black,
+              duration: const Duration(days: 4),
+            ),
           );
         }
       },
@@ -66,9 +70,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-
-  void showProgressIndicator(context)
-  {
+  void showProgressIndicator(context) {
     AlertDialog alertDialog = const AlertDialog(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -82,15 +84,12 @@ class LoginScreen extends StatelessWidget {
         context: context,
         barrierColor: ColorManager.white.withOpacity(0),
         barrierDismissible: false,
-        builder: (context){
-      return alertDialog;
-    });
-
+        builder: (context) {
+          return alertDialog;
+        });
   }
 
-
-  Widget _buildNextButton(context)
-  {
+  Widget _buildNextButton(context) {
     return Align(
       alignment: Alignment.centerRight,
       child: ElevatedButton(
@@ -99,33 +98,30 @@ class LoginScreen extends StatelessWidget {
 
           _register(context);
         },
-        style:ElevatedButton.styleFrom(
-          minimumSize: const Size(110, 50),
-          backgroundColor: ColorManager.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          )
-        ),
+        style: ElevatedButton.styleFrom(
+            minimumSize: const Size(110, 50),
+            backgroundColor: ColorManager.black,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            )),
         child: const Text(
           TextManager.nextBtn,
-          style: TextStyle(color: ColorManager.white,fontSize: 16),
+          style: TextStyle(color: ColorManager.white, fontSize: 16),
         ),
       ),
     );
   }
 
-  Future<void> _register(context)
-  async {
-    if(!formKey.currentState!.validate()){
+  Future<void> _register(context) async {
+    if (!formKey.currentState!.validate()) {
       Navigator.pop(context);
-    }else{
+    } else {
       formKey.currentState!.save();
       BlocProvider.of<PhoneAuthCubit>(context).submitPhoneNumber(phoneNumber);
     }
   }
 
-  Widget _buildPhoneFormField()
-  {
+  Widget _buildPhoneFormField() {
     return Row(
       children: [
         //egypt flag and +20 code
@@ -192,16 +188,14 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  String generateCountryFlag()
-  {
+  String generateCountryFlag() {
     String countryCode = 'eg';
     String flag = countryCode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
     return flag;
   }
 
-  Widget _buildHeaderText()
-  {
+  Widget _buildHeaderText() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
