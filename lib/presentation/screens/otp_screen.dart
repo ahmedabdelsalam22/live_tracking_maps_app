@@ -3,12 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_maps_app/core/utils/color_manager.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../business_logic/phone_auth/phone_auth_cubit.dart';
 import '../../core/utils/text_manager.dart';
+import '../business_logic/phone_auth/phone_auth_cubit.dart';
 
 class OtpScreen extends StatelessWidget {
-   OtpScreen({Key? key,required this.phoneNumber}) : super(key: key);
-
+  OtpScreen({Key? key, required this.phoneNumber}) : super(key: key);
 
   final phoneNumber;
   String? otpCode;
@@ -17,45 +16,44 @@ class OtpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: ColorManager.white,
-          body: SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 32,vertical: 88),
-              child: Column(
-                children: [
-                  _buildHeaderText(),
-                  const SizedBox(height: 88),
-                  _buildPinCodeFields(context),
-                  const SizedBox(height: 60),
-                  _buildVerifyButton(context),
-                  _buildPhoneVerificationBloc(),
-                ],
-              ),
-            ),
+      backgroundColor: ColorManager.white,
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 88),
+          child: Column(
+            children: [
+              _buildHeaderText(),
+              const SizedBox(height: 88),
+              _buildPinCodeFields(context),
+              const SizedBox(height: 60),
+              _buildVerifyButton(context),
+              _buildPhoneVerificationBloc(),
+            ],
           ),
-        )
-    );
+        ),
+      ),
+    ));
   }
 
-  Widget _buildPhoneVerificationBloc()
-  {
-    return BlocListener<PhoneAuthCubit,PhoneAuthStates>(
-      listenWhen: (previous,current){
+  Widget _buildPhoneVerificationBloc() {
+    return BlocListener<PhoneAuthCubit, PhoneAuthStates>(
+      listenWhen: (previous, current) {
         return previous != current;
       },
-      listener: (context,state){
-        if(state is PhoneAuthLoadingState){
+      listener: (context, state) {
+        if (state is PhoneAuthLoadingState) {
           showProgressIndicator(context);
         }
-        if(state is PhoneAuthVerifiedState){
+        if (state is PhoneAuthVerifiedState) {
           Navigator.pushReplacementNamed(context, TextManager.mapScreen);
         }
-        if(state is PhoneAuthErrorState){
+        if (state is PhoneAuthErrorState) {
           String errorMessage = (state).errorMessage;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(errorMessage),
-              backgroundColor: ColorManager.black,duration: const Duration(days: 4),
+              backgroundColor: ColorManager.black,
+              duration: const Duration(days: 4),
             ),
           );
         }
@@ -64,11 +62,7 @@ class OtpScreen extends StatelessWidget {
     );
   }
 
-
-
-
-  Widget _buildVerifyButton(BuildContext context)
-  {
+  Widget _buildVerifyButton(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
       child: ElevatedButton(
@@ -76,51 +70,44 @@ class OtpScreen extends StatelessWidget {
           showProgressIndicator(context);
           _login(context);
         },
-        style:ElevatedButton.styleFrom(
+        style: ElevatedButton.styleFrom(
             minimumSize: const Size(110, 50),
             backgroundColor: ColorManager.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),
-            )
-        ),
+            )),
         child: const Text(
           TextManager.verifyBtn,
-          style: TextStyle(color: ColorManager.white,fontSize: 16),
+          style: TextStyle(color: ColorManager.white, fontSize: 16),
         ),
       ),
     );
   }
 
-  void _login(context)
-  {
+  void _login(context) {
     BlocProvider.of<PhoneAuthCubit>(context).submitOtp(otpCode!);
   }
 
-   void showProgressIndicator(BuildContext context)
-   {
-     AlertDialog alertDialog = const AlertDialog(
-       backgroundColor: Colors.transparent,
-       elevation: 0.0,
-       content: Center(
-         child: CircularProgressIndicator(
-           valueColor: AlwaysStoppedAnimation<Color>(ColorManager.black),
-         ),
-       ),
-     );
-     showDialog(
-         context: context,
-         barrierColor: ColorManager.white.withOpacity(0),
-         barrierDismissible: false,
-         builder: (context){
-           return alertDialog;
-         });
+  void showProgressIndicator(BuildContext context) {
+    AlertDialog alertDialog = const AlertDialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
+      content: Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(ColorManager.black),
+        ),
+      ),
+    );
+    showDialog(
+        context: context,
+        barrierColor: ColorManager.white.withOpacity(0),
+        barrierDismissible: false,
+        builder: (context) {
+          return alertDialog;
+        });
+  }
 
-   }
-
-
-
-   Widget _buildPinCodeFields(context)
-  {
+  Widget _buildPinCodeFields(context) {
     return Container(
       child: PinCodeTextField(
         appContext: context,
@@ -152,19 +139,16 @@ class OtpScreen extends StatelessWidget {
         },
         onChanged: (value) {
           print(value);
-          },
+        },
       ),
     );
   }
 
-
-
-  Widget _buildHeaderText()
-  {
+  Widget _buildHeaderText() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-          const Text(
+        const Text(
           TextManager.otpHeaderText,
           style: TextStyle(
               color: ColorManager.black,
@@ -177,20 +161,23 @@ class OtpScreen extends StatelessWidget {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 2),
           child: RichText(
-              text:  TextSpan(
-                  text: TextManager.enter6NumToVerify,
-                  style: const TextStyle(color: ColorManager.black,fontSize: 18,height: 1.4),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: '$phoneNumber',
-                      style: const TextStyle(color: ColorManager.blue,fontSize: 18,),
-                    )
-                  ],
-              ),
+            text: TextSpan(
+              text: TextManager.enter6NumToVerify,
+              style: const TextStyle(
+                  color: ColorManager.black, fontSize: 18, height: 1.4),
+              children: <TextSpan>[
+                TextSpan(
+                  text: '$phoneNumber',
+                  style: const TextStyle(
+                    color: ColorManager.blue,
+                    fontSize: 18,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ],
     );
   }
-
 }
