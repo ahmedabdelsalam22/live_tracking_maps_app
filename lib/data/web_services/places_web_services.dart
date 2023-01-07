@@ -15,7 +15,7 @@ class PlacesWebservices {
     dio = Dio(options);
   }
 
-  Future<List<dynamic>> fetchSuggestions(
+  Future<List<dynamic>> fetchSuggestionsPlaces(
       String place, String sessionToken) async {
     try {
       Response response = await dio.get(
