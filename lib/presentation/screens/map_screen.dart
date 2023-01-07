@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_maps_app/core/utils/color_manager.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import '../../core/network/location_helper.dart';
+import '../../data/model/place_suggestion_model.dart';
+import '../business_logic/google_maps/maps_cubit.dart';
 import '../widgets/my_drawer.dart';
 
 class MapScreen extends StatefulWidget {
@@ -17,6 +20,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  List<PlaceSuggestionModel> places = [];
+
   static Position? position;
   final Completer<GoogleMapController> _mapController = Completer();
   FloatingSearchBarController controller = FloatingSearchBarController();
@@ -95,11 +100,34 @@ class _MapScreenState extends State<MapScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: [],
+            children: [
+              buildSuggestionsBloc(),
+            ],
           ),
         );
       },
     );
+  }
+
+  Widget buildSuggestionsBloc() {
+    return BlocBuilder<MapsCubit, MapsState>(
+      builder: (context, state) {
+        if (state is PlacesLoaded) {
+          places = (state).places;
+          if (places.isNotEmpty) {
+            return buildPlacesList();
+          } else {
+            return Container();
+          }
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+
+  Widget buildPlacesList() {
+    return Container();
   }
 
   @override
