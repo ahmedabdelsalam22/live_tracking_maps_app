@@ -6,7 +6,7 @@ class TextManager {
 
   //google map api key
 
-  static const String apiKey = 'AIzaSyCMB_CkyFLwMXb1F4j61tzNHN1hKwFMrLQ';
+  static const String apiKey = 'AIzaSyC19RLDfibykWpViwiylVCWGb9ag7EP7wE';
 
   /*
   https://maps.googleapis.com/maps/api/place/autocomplete/output?parameters
