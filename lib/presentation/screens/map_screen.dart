@@ -11,6 +11,7 @@ import '../../core/network/location_helper.dart';
 import '../../data/model/place_suggestion_model.dart';
 import '../business_logic/google_maps/maps_cubit.dart';
 import '../widgets/my_drawer.dart';
+import '../widgets/place_item.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -127,7 +128,21 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Widget buildPlacesList() {
-    return Container();
+    return ListView.builder(
+        itemBuilder: (ctx, index) {
+          return InkWell(
+            onTap: () async {
+              //  placeSuggestion = places[index];
+              controller.close();
+            },
+            child: PlaceItem(
+              suggestion: places[index],
+            ),
+          );
+        },
+        itemCount: places.length,
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics());
   }
 
   @override
@@ -146,11 +161,9 @@ class _MapScreenState extends State<MapScreen> {
           children: [
             position != null
                 ? buildMap()
-                : Center(
-                    child: Container(
-                      child: const CircularProgressIndicator(
-                        color: ColorManager.blue,
-                      ),
+                : const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.blue,
                     ),
                   ),
             buildFloatingSearchBar(),
