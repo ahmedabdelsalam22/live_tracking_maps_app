@@ -7,7 +7,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyDrawer extends StatelessWidget {
-   MyDrawer({Key? key}) : super(key: key);
+  MyDrawer({Key? key}) : super(key: key);
+
+  PhoneAuthCubit phoneAuthCubit = PhoneAuthCubit();
 
   Widget buildDrawerHeader(context) {
     return Column(
@@ -30,17 +32,23 @@ class MyDrawer extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        const Text('+201113046200',style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+        BlocProvider(
+          create: (context) => phoneAuthCubit,
+          child: Text(
+            '${phoneAuthCubit.getLoggedInUser().phoneNumber}',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        )
       ],
     );
   }
 
   Widget buildDrawerListItem(
       {required IconData leadingIcon,
-        required String title,
-        Widget? trailing,
-        Function()? onTap,
-        Color? color}) {
+      required String title,
+      Widget? trailing,
+      Function()? onTap,
+      Color? color}) {
     return ListTile(
       leading: Icon(
         leadingIcon,
@@ -70,65 +78,63 @@ class MyDrawer extends StatelessWidget {
     await launchUrl(url) ? await launchUrl(url) : throw 'Could not launch $url';
   }
 
-   Widget buildIcon(IconData icon, Uri url) {
-     return InkWell(
-       onTap: () => _launchURL(url),
-       child: Icon(
-         icon,
-         color: ColorManager.blue,
-         size: 35,
-       ),
-     );
-   }
+  Widget buildIcon(IconData icon, Uri url) {
+    return InkWell(
+      onTap: () => _launchURL(url),
+      child: Icon(
+        icon,
+        color: ColorManager.blue,
+        size: 35,
+      ),
+    );
+  }
 
-   Widget buildSocialMediaIcons() {
-     return Padding(
-       padding: const EdgeInsetsDirectional.only(start: 16),
-       child: Row(
-         children: [
-           buildIcon(
-             FontAwesomeIcons.facebook,
-             Uri.parse('https://www.facebook.com/prAhmed20'),
-           ),
-           const SizedBox(
-             width: 15,
-           ),
-           buildIcon(
-             FontAwesomeIcons.youtube,
-             Uri.parse('https://www.youtube.com/channel/UCdVxIQ47z0IVm9HdKiNT_2Q'),
-           ),
-           const SizedBox(
-             width: 20,
-           ),
-           buildIcon(
-             FontAwesomeIcons.github,
-             Uri.parse('https://github.com/prAhmed20'),
-           ),
-         ],
-       ),
-     );
-   }
+  Widget buildSocialMediaIcons() {
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(start: 16),
+      child: Row(
+        children: [
+          buildIcon(
+            FontAwesomeIcons.facebook,
+            Uri.parse('https://www.facebook.com/prAhmed20'),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          buildIcon(
+            FontAwesomeIcons.youtube,
+            Uri.parse(
+                'https://www.youtube.com/channel/UCdVxIQ47z0IVm9HdKiNT_2Q'),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          buildIcon(
+            FontAwesomeIcons.github,
+            Uri.parse('https://github.com/prAhmed20'),
+          ),
+        ],
+      ),
+    );
+  }
 
-   PhoneAuthCubit phoneAuthCubit = PhoneAuthCubit();
-
-   Widget buildLogoutBlocProvider(context) {
-     return Container(
-       child: BlocProvider<PhoneAuthCubit>(
-         create: (context) => phoneAuthCubit,
-         child: buildDrawerListItem(
-           leadingIcon: Icons.logout,
-           title: 'Logout',
-           onTap: () async {
-             await phoneAuthCubit.logOut();
-             Navigator.of(context).pushReplacementNamed(TextManager.loginScreen);
-           },
-           color: ColorManager.red,
-           trailing: const SizedBox(),
-         ),
-       ),
-     );
-   }
-
+  Widget buildLogoutBlocProvider(context) {
+    return Container(
+      child: BlocProvider<PhoneAuthCubit>(
+        create: (context) => phoneAuthCubit,
+        child: buildDrawerListItem(
+          leadingIcon: Icons.logout,
+          title: 'Logout',
+          onTap: () async {
+            await phoneAuthCubit.logOut();
+            Navigator.of(context).pushReplacementNamed(TextManager.loginScreen);
+          },
+          color: ColorManager.red,
+          trailing: const SizedBox(),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +174,6 @@ class MyDrawer extends StatelessWidget {
           buildSocialMediaIcons(),
         ],
       ),
-
     );
   }
 }
