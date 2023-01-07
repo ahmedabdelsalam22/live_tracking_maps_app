@@ -6,6 +6,7 @@ import 'package:flutter_maps_app/core/utils/color_manager.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../core/network/location_helper.dart';
 import '../../data/model/place_suggestion_model.dart';
@@ -83,7 +84,9 @@ class _MapScreenState extends State<MapScreen> {
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
       debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {},
+      onQueryChanged: (query) {
+        getPlacesSuggestions(query);
+      },
       onFocusChanged: (_) {},
       transition: CircularFloatingSearchBarTransition(),
       actions: [
@@ -108,6 +111,12 @@ class _MapScreenState extends State<MapScreen> {
         );
       },
     );
+  }
+
+  void getPlacesSuggestions(String query) {
+    final sessionToken = const Uuid().v4();
+    BlocProvider.of<MapsCubit>(context)
+        .emitPlaceSuggestions(query, sessionToken);
   }
 
   Widget buildSuggestionsBloc() {
